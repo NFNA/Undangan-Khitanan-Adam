@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undangan Khitanan - Adam Faiq Arrizky</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Stylesheet Eksternal -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="text-gray-800 antialiased">
+
+    <!-- Tombol Kontrol Musik -->
+    <button id="music-toggle" title="Putar/Hentikan Musik">
+        <!-- Ikon Play -->
+        <svg id="icon-play" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
+        </svg>
+        <!-- Ikon Pause (Tersembunyi) -->
+        <svg id="icon-pause" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="hidden">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 7a1 1 0 00-1 1v4a1 1 0 001 1h1a1 1 0 001-1V8a1 1 0 00-1-1H8zm5 0a1 1 0 00-1 1v4a1 1 0 001 1h1a1 1 0 001-1V8a1 1 0 00-1-1h-1z" clip-rule="evenodd" />
+        </svg>
+    </button>
+    
+    <audio id="background-music" loop playsinline preload="auto">
+        <!-- 
+            Link musik dari GitHub Pages Anda.
+        -->
+        <source src="https://nfna.github.io/Musik/Selamat%20Datang%2C%20Adam.mp3" type="audio/mpeg">
+        Browser Anda tidak mendukung elemen audio.
+    </audio>
+
+    <!-- 1. Halaman Sambutan (Landing Page) -->
+    <div id="landing-page" class="landing-bg-light min-h-screen flex flex-col items-center justify-center text-center p-6 text-[var(--text-dark)] relative"> <!-- Diubah ke text-dark (Hitam) -->
+        <!-- <div class="absolute inset-0 bg-black opacity-50"></div> --> <!-- Lapisan gelap dihapus -->
+        <div class="relative z-10 flex flex-col items-center justify-center h-full w-full"> <!-- Tambah w-full -->
+            
+            <!-- WADAH KONTEN BARU (Bentuk "amplop" / kartu) -->
+            <div class="w-full max-w-lg rounded-lg shadow-xl p-8 md:p-12 envelope-card-landing"> <!-- bg-white/80 & backdrop-blur DIHAPUS, kelas baru DITAMBAHKAN -->
+                
+                <h2 class="font-serif text-2xl md:text-3xl mb-4 landing-title text-black">Acara Khitanan</h2> <!-- Diubah ke text-black -->
+                
+                <!-- GARIS BARU (Sesuai request) -->
+                <div class="w-32 h-0.5 bg-[var(--brand-green)] mx-auto my-4"></div>
+                
+                <h1 class="font-serif text-5xl md:text-7xl font-bold mb-8 landing-title text-[var(--brand-green)]">Adam Faiq Arrizky</h1> <!-- Diubah ke brand-green (Hijau) -->
+                
+                <!-- Box "Kepada Yth" sekarang di dalam wadah, dengan style menyatu -->
+                <div class="bg-white/50 p-4 rounded-lg shadow-inner"> 
+                    <p class="text-lg mb-2 text-black">Kepada Yth:</p> <!-- Diubah ke text-black -->
+                    <h3 id="guest-name" class="text-3xl font-bold font-serif text-[var(--brand-green)]">[Nama Tamu]</h3> <!-- Diberi kelas brand-green (Hijau) -->
+                </div>
+
+            </div>
+            <!-- AKHIR WADAH KONTEN BARU -->
+
+            <button id="open-button" class="mt-12 btn-gold">
+                Buka Undangan
+            </button>
+        </div>
+    </div>
+
+    <!-- 2. Animasi Amplop -->
+    <div id="envelope-container" class="min-h-screen hidden flex-col items-center justify-center p-6">
+        <div class="envelope-wrapper" id="envelope">
+            <div class="letter">Anda Diundang...</div>
+            <div class="envelope-flap"></div>
+        </div>
+        <p class="mt-6 text-gray-600 italic">Membuka surat...</p>
+    </div>
+
+    <!-- 3. Konten Undangan Utama (Disembunyikan awalnya) -->
+    <div id="main-content" class="hidden opacity-0">
+        
+        <div class="max-w-2xl mx-auto p-4 md:p-8">
+
+            <!-- Bagian 1: Cover -->
+            <section class="text-center py-12 md:py-16"> <!-- Jarak dikurangi -->
+                <div class="content-card w-full p-8 md:p-12">
+                    <h1 class="font-serif text-4xl md:text-5xl font-bold text-[var(--brand-green)] mb-6">Undangan Khitanan</h1>
+                    <h2 class="font-serif text-3xl md:text-4xl mb-4">Adam Faiq Arrizky</h2>
+                    <p class="text-xl md:text-2xl mb-8">15 November 2025</p>
+                    <p class="text-lg mb-2">Mengundang Yth:</p>
+                    <h3 id="guest-name-main" class="text-2xl font-bold font-serif text-[var(--brand-green)]">[Nama Tamu]</h3>
+                </div>
+            </section>
+
+            <!-- Bagian 2: Intro & Puji Syukur -->
+            <section class="text-center py-12 md:py-16"> <!-- Jarak dikurangi -->
+                <div class="content-card w-full p-8 md:p-12 fade-in">
+                    <h2 class="font-serif text-3xl md:text-4xl font-bold text-[var(--brand-green)] mb-6">Acara Khitanan</h2>
+                    <h3 class="font-serif text-2xl md:text-3xl mb-8">Saudara Adam Faiq Arrizky</h3>
+                    <p class="text-lg italic leading-relaxed">
+                        Puji syukur kami panjatkan kehadirat Allah SWT, yang telah melimpahkan rahmat dan karunia-Nya kepada kita semua. Sholawat serta salam senantiasa tercurah kepada junjungan kita Nabi Muhammad SAW, beserta keluarga dan para sahabatnya.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Bagian 3: Landasan Agama & Detail Putra -->
+            <section class="text-center py-12 md:py-16"> <!-- Jarak dikurangi -->
+                <div class="content-card w-full p-8 md:p-12 fade-in">
+                    <h2 class="font-serif text-2xl font-bold text-[var(--brand-green)] mb-4">Menjalankan Syariat Agama Islam</h2>
+                    <blockquote class="border-r-4 border-[var(--brand-gold)] pr-4 italic text-right mb-8">
+                        <p class="font-semibold text-lg" style="direction: rtl; font-family: 'Noto Naskh Arabic', serif;">الْفِطْرَةُ خَمْسٌ: الْخِتَانُ، وَالِاسْتِحْدَادُ، وَقَصُّ الشَّارِبِ، وَتَقْلِيمُ الْأَظْfāRِ، وَنَتْفُ الْآبَاطِ</p>
+                        <p class="mt-3">Artinya: "Fitrah itu ada lima: Khitan, mencukur bulu kemaluan (istihdad), memotong kumis, memotong kuku, dan mencabut bulu ketiak."</p>
+                        <footer class="mt-2 text-sm">(HR. Bukhari nomor 5438 dan Muslim nomor 377)</footer>
+                    </blockquote>
+
+                    <p class="text-lg mb-6 mt-12">
+                        Assalamu’alaikum Wr. Wb. <br><br>
+                        Dengan memohon rahmat dan ridho Allah Subhanahu Wa Ta’ala, insyaaAllah kami akan menyelenggarakan acara Khitanan Putra kami:
+                    </p>
+                    
+                    <img src="https://lh3.googleusercontent.com/d/18r2h2bzx5lgDDt_C60arvmRC7JgvU7KN" 
+                         alt="Foto Adam Faiq Arrizky" 
+                         class="w-48 h-48 md:w-56 md:h-56 mx-auto rounded-full object-cover border-4 border-white shadow-lg mb-4">
+                    
+                    <h1 class="font-serif text-4xl md:text-5xl font-bold text-[var(--brand-green)] mb-2">Adam Faiq Arrizky</h1>
+                    <p class="text-lg">Putra dari pasangan</p>
+                    <p class="text-xl font-semibold">Ibu Febiyana Sari & Bapak Abdul Azis</p>
+                </div>
+            </section>
+
+            <!-- Bagian 4: Hitungan Mundur -->
+            <section class="text-center py-12 md:py-16"> <!-- Jarak dikurangi -->
+                <div class="content-card w-full p-8 md:p-12 fade-in">
+                    <h2 class="font-serif text-3xl md:text-4xl font-bold text-[var(--brand-green)] mb-6">Kami Menantikan Kehadiran Anda</h2>
+                    <p class="text-lg mb-8">Kami menantikan kehadiran keluarga dan teman-teman, untuk mengikuti syukuran:</p>
+                    
+                    <div id="countdown" class="flex justify-center gap-4 md:gap-8 text-center mb-10">
+                        <div>
+                            <div id="days" class="text-4xl md:text-6xl font-bold text-[var(--brand-green)]">00</div>
+                            <div class="text-sm uppercase">Hari</div>
+                        </div>
+                        <div>
+                            <div id="hours" class="text-4xl md:text-6xl font-bold text-[var(--brand-green)]">00</div>
+                            <div class="text-sm uppercase">Jam</div>
+                        </div>
+                        <div>
+                            <div id="minutes" class="text-4xl md:text-6xl font-bold text-[var(--brand-green)]">00</div>
+                            <div class="text-sm uppercase">Menit</div>
+                        </div>
+                        <div>
+                            <div id="seconds" class="text-4xl md:text-6xl font-bold text-[var(--brand-green)]">00</div>
+                            <div class="text-sm uppercase">Detik</div>
+                        </div>
+                    </div>
+                    
+                    <p class="text-lg font-semibold mb-6">Menuju: Sabtu, 15 November 2025</p>
+                    
+                    <a id="calendar-button" href="#" target="_blank" class="inline-flex items-center btn-green">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                        Simpan ke Google Kalender
+                    </a>
+                </div>
+            </section>
+
+            <!-- Bagian 5: Latar Waktu & Tempat -->
+            <section class="text-center py-12 md:py-16"> <!-- Jarak dikurangi -->
+                <div class="content-card w-full p-8 md:p-12 fade-in">
+                    <h2 class="font-serif text-3xl md:text-4xl font-bold text-[var(--brand-green)] mb-6">Syukuran Khitanan</h2>
+                    
+                    <div class="text-lg space-y-2 mb-6">
+                        <p class="text-xl font-bold">Sabtu, 15 November 2025</p>
+                        <p>Pukul: 09.00 WIB s/d Selesai</p>
+                        <p class="font-semibold mt-4">Lokasi Acara:</p>
+                        <p>Jl.Maharmartanegara 002/008 , kmp.cimuncang ,<br>Cimahi selatan (depan pt.afiat)</p>
+                    </div>
+
+                    <div class="w-full h-64 rounded-lg overflow-hidden border-2 border-white shadow-md mb-6">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d990.1309852085799!2d107.54483866964855!3d-6.945277199589311!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNsKwNTYnNDMuMCJTIDEwN8KwMzInNDIuNyJF!5e0!3m2!1sid!2sid!4v1731302995874!5m2!1sid!2sid"
+                            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+
+                    <a href="https://maps.app.goo.gl/uaWNERPQBDFa2zso6" target="_blank" class="inline-flex items-center btn-green">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                        Buka Google Maps
+                    </a>
+                </div>
+            </section>
+
+            <!-- Bagian 6: Amplop Digital -->
+            <section class="text-center py-12 md:py-16"> <!-- Jarak dikurangi -->
+                <div class="content-card w-full p-8 md:p-12 fade-in">
+                    <h2 class="font-serif text-3xl md:text-4xl font-bold text-[var(--brand-green)] mb-6">Amplop Digital</h2>
+                    <p class="text-lg mb-8">
+                        Do'a dan restu Anda sangat berarti bagi kami. Namun, jika ingin memberikan hadiah, Anda bisa memberi kado secara cashless melalui:
+                    </p>
+
+                    <div class="bg-amber-50 p-6 rounded-lg shadow-inner max-w-sm mx-auto">
+                        <p class="text-lg font-semibold">A/N: Abdul Azis</p>
+                        <p class="text-md mb-2">Bank Mandiri</p>
+                        <div class="flex items-center justify-center bg-white p-3 rounded-lg border border-gray-300">
+                            <span id="rekening-number" class="text-xl font-bold text-gray-700 mr-3">1320024371156</span>
+                            <button id="copy-button" class="p-2 bg-gray-200 rounded-full hover:bg-gray-300 transition" title="Salin Nomor Rekening">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                            </button>
+                        </div>
+                        <span id="copy-feedback" class="text-sm text-green-600 h-4 mt-2 block"></span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bagian 7: Form Reservasi (RSVP) -->
+            <section class="text-center py-12 md:py-16"> <!-- Jarak dikurangi -->
+                <div class="content-card w-full p-8 md:p-12 fade-in">
+                    <h2 class="font-serif text-3xl md:text-4xl font-bold text-[var(--brand-green)] mb-6">Konfirmasi Kehadiran</h2>
+                    <p class="text-lg mb-8">Mohon konfirmasi kehadiran Anda untuk kelancaran acara kami.</p>
+
+                    <form id="rsvp-form" class="text-left space-y-4 max-w-sm mx-auto">
+                        <div>
+                            <label for="rsvp-name" class="block text-sm font-medium text-gray-700 mb-1">Nama Anda</label>
+                            <input type="text" id="rsvp-name" name="rsvp-name" class="form-input" placeholder="Tulis nama Anda" required>
+                        </div>
+                        <div>
+                            <label for="rsvp-count" class="block text-sm font-medium text-gray-700 mb-1">Jumlah Tamu</label>
+                            <input type="number" id="rsvp-count" name="rsvp-count" min="1" class="form-input" placeholder="Contoh: 2" required>
+
+                        </div>
+                        <fieldset>
+                            <legend class="block text-sm font-medium text-gray-700 mb-2">Konfirmasi</legend>
+                            <div class="flex gap-4">
+                                <label class="flex-1 flex items-center bg-white border border-gray-300 p-3 rounded-lg shadow-sm cursor-pointer hover:bg-gray-50">
+                                    <input type="radio" id="rsvp-hadir" name="rsvp-status" value="Hadir" class="mr-2 text-[var(--brand-green)] focus:ring-[var(--brand-green)]" required>
+                                    <span>Saya akan hadir</span>
+                                </label>
+                                <label class="flex-1 flex items-center bg-white border border-gray-300 p-3 rounded-lg shadow-sm cursor-pointer hover:bg-gray-50">
+                                    <input type="radio" id="rsvp-tidak" name="rsvp-status" value="Tidak Hadir" class="mr-2 text-[var(--brand-green)] focus:ring-[var(--brand-green)]">
+                                    <span>Maaf, tidak bisa</span>
+                                </label>
+                            </div>
+                        </fieldset>
+                        <button id="rsvp-button" type="submit" class="w-full mt-6 btn-green">
+                            Kirim Konfirmasi
+                        </button>
+                        <span id="rsvp-feedback" class="text-sm h-4 mt-2 block text-center"></span>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Bagian 8: Form Doa -->
+            <section class="text-center py-12 md:py-16"> <!-- Jarak dikurangi -->
+                <div class="content-card w-full p-8 md:p-12 fade-in">
+                    <h2 class="font-serif text-3xl md:text-4xl font-bold text-[var(--brand-green)] mb-6">Kirim Do'a & Ucapan</h2>
+                    <p class="text-lg mb-8">Berikan do'a terbaik Anda untuk Adam dan keluarga.</p>
+
+                    <form id="doa-form" class="text-left space-y-4 max-w-sm mx-auto">
+                        <div>
+                            <label for="doa-name" class="block text-sm font-medium text-gray-700 mb-1">Nama Anda</label>
+                            <input type="text" id="doa-name" name="doa-name" class="form-input" placeholder="Tulis nama Anda" required>
+                        </div>
+                        <div>
+                            <label for="doa-message" class="block text-sm font-medium text-gray-700 mb-1">Ucapan & Do'a</label>
+                            <textarea id="doa-message" name="doa-message" rows="4" class="form-input" placeholder="Tulis ucapan dan do'a Anda di sini..." required></textarea>
+                        </div>
+                        <button id="doa-button" type="submit" class="w-full mt-6 btn-green">
+                            Kirim Do'a
+                        </button>
+                        <span id="doa-feedback" class="text-sm h-4 mt-2 block text-center"></span>
+                    </form>
+                    
+                    <hr class="my-10 border-gray-200">
+                    
+                    <h2 class="font-serif text-3xl md:text-4xl font-bold text-[var(--brand-green)] mb-6">Daftar Do'a</h2>
+                    <p class="text-lg mb-8">Lihat do'a dan ucapan yang telah masuk dari tamu lainnya.</p>
+                    <button id="open-doa-viewer" class="btn-gold">
+                        Buka Ucapan Do'a
+                    </button>
+
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="text-center p-10 text-gray-700">
+                <p>Terima kasih atas perhatian dan do'anya.</p>
+                <p class="font-serif text-2xl mt-4 text-[var(--brand-green)]">Keluarga Besar</p>
+                <p class="font-semibold">Ibu Febiyana Sari & Bapak Abdul Azis</p>
+                <p class="text-xs mt-6 opacity-60">Dibuat dengan ❤️</p>
+            </footer>
+
+        </div>
+    </div>
+
+    <!-- Halaman Tampilan Doa (Awalnya Tersembunyi) -->
+    <div id="doa-viewer" class="">
+        <button id="close-doa-viewer" class="fixed top-4 left-4 z-20 bg-white p-2 rounded-full shadow-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+        <div class="max-w-2xl mx-auto">
+            <h2 class="font-serif text-3xl font-bold text-[var(--brand-green)] mb-8 text-center">Daftar Do'a & Ucapan</h2>
+            <div id="doa-list" class="space-y-4">
+                <!-- Doa akan dimuat di sini oleh JavaScript -->
+                <p id="doa-loading" class="text-center text-gray-600">Memuat do'a...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Eksternal -->
+    <script src="script.js"></script>
+</body>
+</html>
