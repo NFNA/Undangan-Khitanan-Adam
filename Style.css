@@ -1,0 +1,235 @@
+/* Palet Warna Islami (Hijau Tua, Emas, Krem) */
+:root {
+    --bg-cream: #fdfaf6;
+    --brand-green: #0A6847;
+    --brand-gold: #D4AF37;
+    --text-dark: #333;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-cream);
+    color: var(--text-dark);
+}
+
+h1, h2, h3, .font-serif {
+    font-family: 'Playfair Display', serif;
+}
+
+/* Latar belakang pola islami */
+.islamic-bg {
+    background-image: url('https://images.unsplash.com/photo-1615800099712-c15c03c62125?auto=format&fit=crop&w=1920&q=80');
+    background-size: cover;
+    background-position: center;
+}
+
+/* BARU: Latar belakang landing page yang cerah */
+.landing-bg-light {
+    background-image: url('https://images.unsplash.com/photo-1593324842100-2f9609a63261?auto=format&fit=crop&w=1920&q=80'); /* Tekstur krem/putih cerah */
+    background-size: cover;
+    background-position: center;
+}
+
+/* BARU: Style untuk kartu di landing page */
+.envelope-card-landing {
+    background-color: #f0e6d8; /* Warna amplop animasi */
+    border: 1px solid #e6dacb; /* Warna flap amplop sbg border */
+}
+
+.content-card {
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 0.75rem;
+    border: 1px solid rgba(212, 175, 55, 0.3); /* Border Emas Halus */
+    /* box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05); */ /* DIHAPUS - Agar lebih samar */
+}
+
+/* Tombol Utama */
+.btn-gold {
+    background-color: var(--brand-gold);
+    color: #111; /* Teks gelap di atas emas */
+    font-weight: bold;
+    border-radius: 9999px;
+    padding: 0.75rem 1.5rem;
+    box-shadow: 0 4px 10px -2px rgba(212, 175, 55, 0.4);
+    transition: all 0.2s ease;
+}
+.btn-gold:hover {
+    transform: scale(1.05);
+}
+.btn-gold:active {
+    transform: scale(0.95);
+}
+
+/* Tombol Sekunder (Hijau) */
+.btn-green {
+    background-color: var(--brand-green);
+    color: white;
+    font-weight: bold;
+    border-radius: 9999px;
+    padding: 0.75rem 1.5rem;
+    box-shadow: 0 4px 10px -2px rgba(10, 104, 71, 0.4);
+    transition: all 0.2s ease;
+}
+.btn-green:hover {
+    transform: scale(1.05);
+}
+.btn-green:active {
+    transform: scale(0.95);
+}
+
+/* Input Form */
+.form-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #ddd;
+    border-radius: 0.5rem;
+    box-shadow: inset 0 2px 4px 0 rgba(0,0,0,0.05);
+    transition: all 0.2s ease;
+}
+.form-input:focus {
+    outline: none;
+    border-color: var(--brand-green);
+    box-shadow: 0 0 0 2px rgba(10, 104, 71, 0.3);
+}
+
+/* Tombol Musik */
+#music-toggle {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 50;
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(5px);
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+#music-toggle:hover {
+    transform: scale(1.1);
+}
+#music-toggle svg {
+    width: 20px;
+    height: 20px;
+    color: var(--brand-green);
+}
+/* Animasi putar untuk ikon play */
+#music-toggle.playing svg {
+    animation: spin 3s linear infinite;
+}
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* === CSS ANIMASI AMPLOP (DITAMBAHKAN KEMBALI) === */
+#envelope-container {
+    background-color: #F5E8C7; /* Warna krem-kuningan, beda dari abu/putih */
+}
+.envelope-wrapper {
+    position: relative;
+    width: 280px;
+    height: 180px;
+    background-color: #f0e6d8;
+    border-radius: 6px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 1s ease-in-out;
+    transform-style: preserve-3d;
+}
+.envelope-flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #e6dacb;
+    border-radius: 6px;
+    transform-origin: top;
+    transition: transform 1s ease-in-out;
+    z-index: 3;
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+}
+.letter {
+    position: absolute;
+    width: 260px;
+    height: 160px;
+    background-color: white;
+    padding: 20px;
+    font-size: 1.2rem;
+    color: #333; /* Pastikan teks surat terlihat */
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    transition: all 1s ease-in-out;
+    z-index: 1;
+}
+
+/* State Terbuka */
+.envelope-open .envelope-flap {
+    transform: rotateX(180deg);
+    z-index: 2; /* Flap di belakang surat saat terbuka */
+}
+.envelope-open .letter {
+    transform: translateY(-110px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    z-index: 4; /* Surat di atas flap saat keluar */
+}
+/* === AKHIR CSS ANIMASI AMPLOP === */
+
+
+/* Animasi Fade-in */
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+.fade-in.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Halaman Tampilan Doa */
+#doa-viewer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-cream);
+    z-index: 100;
+    overflow-y: auto;
+    padding: 20px;
+    padding-top: 80px; /* Ruang untuk tombol kembali */
+    transition: transform 0.5s ease-out;
+    transform: translateY(100%);
+}
+#doa-viewer.show {
+    transform: translateY(0);
+}
+/* Bubble Chat */
+.chat-bubble {
+    background-color: white;
+    padding: 12px 16px;
+    border-radius: 18px;
+    margin-bottom: 12px;
+    max-width: 80%;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    border: 1px solid #eee;
+}
+.chat-bubble .name {
+    font-weight: bold;
+    color: var(--brand-green);
+    margin-bottom: 4px;
+}
+
+/* Polesan Landing Page */
+.landing-title {
+    /* text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7); */ /* Dihapus - tidak perlu di latar cerah */
+}
